@@ -72,9 +72,12 @@ public class Worker {
     public double income(LocalDate date) {
         double sum = baseSalary;
         for (HourContract objContract : contracts) {
-            HourContract findDate = contracts.stream().filter(obj -> obj.getDate() == date).findFirst().orElse(null);
-            if (findDate != null) {
-                sum += findDate.totalValue();
+            int monthIncome = objContract.getDate().getMonthValue();
+            int yearIncome = objContract.getDate().getYear();
+            int dateMonth = date.getMonthValue();
+            int dateYear = date.getYear();
+            if (monthIncome == dateMonth && yearIncome == dateYear) {
+                sum += objContract.totalValue();
             }
         }
         return sum;
